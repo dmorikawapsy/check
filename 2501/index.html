@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>コード入力</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        height: 100vh; /* 画面全体を高さにする */
+        display: flex; /* フレックスボックス */
+        justify-content: center; /* 横方向中央 */
+        align-items: center; /* 縦方向中央 */
+        background: #f9f9f9;
+      }
+      .container {
+        text-align: center;
+        padding: 30px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 90%;
+      }
+      input {
+        padding: 8px;
+        font-size: 16px;
+        width: 200px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 8px 16px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      p {
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="input-section">
+      <h2>指定のコードをご入力ください。</h2>
+      <input type="text" id="codeInput" maxlength="8" required />
+      <br />
+      <button onclick="checkCode()">送信</button>
+    </div>
 
+    <div class="container" id="result" style="display: none"></div>
+
+    <script>
+      const correctCode = "s349287";
+
+      function checkCode() {
+        const input = document.getElementById("codeInput").value;
+        const inputSection = document.getElementById("input-section");
+        const result = document.getElementById("result");
+
+        if (input === correctCode) {
+          // 正解ならリダイレクト
+          window.location.href =
+            "https://dmorikawapsy.github.io/photoarr-aespref/";
+        } else {
+          // 間違いなら警告画面に切り替え
+          inputSection.style.display = "none";
+          result.style.display = "block";
+          result.innerHTML = `
+          <p style="color:red;">入力されたコードに間違いがあります。<br>ご確認の上、再度ご入力ください。</p>
+          <button onclick="retry()">戻る</button>
+        `;
+        }
+      }
+
+      function retry() {
+        // 入力画面に戻す
+        document.getElementById("input-section").style.display = "block";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("codeInput").value = "";
+      }
+    </script>
+  </body>
+</html>
